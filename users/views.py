@@ -219,6 +219,115 @@ def welcome(request):
         activate_student_filter = False
         if request.GET.get('student') and request.GET.get('student') != "0":
             activate_student_filter = True
+
+        #INICIO DIA MUNDIAL
+        #General
+        veces_cayo_response=0
+        colision_muro_response=0
+        complete_lab_response=0
+        salir_lab_response=0
+        gano_lab_facil_response=0
+        gano_lab_medio_response=0
+        gano_lab_dificil_response=0
+        pierde_lab_facil_response=0
+        pierde_lab_medio_response=0
+        pierde_lab_dificil_response=0
+        recogio_basura_oce_response=0
+        recogio_basura_rio_response=0
+        salvo_animales_oce_response=0
+        salvo_animales_rio_response=0
+        recogio_mancha_response=[]
+        recogio_red_response=[]
+        recogio_zapatos_response=[]
+        recogio_basura_tiempo_response=[]
+        salvo_animales_tiempo_response=[]
+        correctas_luces_response=[]
+        get_all_touches_response=[]
+        abandonar_actividad_response=[]
+        llevar_miel_response=[]
+        caer_abejas_response=[]
+        enemigos_abejas_response=[]
+        animales_salvados_encontrados_response=[]
+        animales_salvados_ant_tiempo_response=[]
+        animales_salvados_sel_tiempo_response=[]
+        animales_salvados_mad_tiempo_response=[]
+        instrucciones_seguidas_arbol_response=[]
+        crecio_arbol_response=[]
+        nombre2=[]
+        sesiones_PS_quantity_response2=[]
+        time_PS_quantity_response2=[]
+        tiempoXact_quantity_response2=[]
+        VECES_CAYO=0
+
+
+        if reim_num=="4":
+            #General
+            nombre_query = get_name_student(request)
+            queries.append({"name": 'nombre estudiante', "query": nombre_query})
+            cursor.execute(nombre_query)
+            nombre_quantity = cursor.fetchall()
+            for row in nombre_quantity:
+                nombre2.append({ 'name': row[0]})
+
+            sesiones_PS_query = get_time_act_co(request)
+            queries.append({"name": 'Tiempo Actividad query', "query": sesiones_PS_query})
+            cursor.execute(sesiones_PS_query)
+            sesiones_PS_quantity = cursor.fetchall()
+            for row in sesiones_PS_quantity:
+                sesiones_PS_quantity_response2.append({ 'id': row[0]})
+       
+            time_PS_query = get_time_act_co(request)
+            queries.append({"name": 'Tiempo Actividad query', "query": time_PS_query})
+            cursor.execute(time_PS_query)
+            time_PS_quantity = cursor.fetchall()
+            for row in time_PS_quantity:
+                time_PS_quantity_response2.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+        #tiempo por actividad general
+            tiempoXact_query = get_tiempoact(request)
+            cursor.execute(tiempoXact_query)
+            queries.append({"name": 'TiempoXact query', "query": tiempoXact_query})
+            tiempoXact_quantity = cursor.fetchall()
+            print("tiempoXact quantity", tiempoXact_quantity)
+            for row in tiempoXact_quantity:
+                tiempoXact_quantity_response2.append({ 'id': row[0], 'name': row[1], 'quantity': row[2] })
+
+
+        ##JUEGO LABERINTO
+        #VECES QUE CAYÓ
+        veces_cayo_response=len(get_fall_lab) * 40+100
+        #VECES QUE COLISIONO CON EL MURO
+        colision_muro_response=len(get_colision_wall) * 40+100
+        #VECES QUE TERMINO UN LAB
+        complete_lab_response=len(get_complete_lab) * 40+100
+        #VECES QUE SALIO DE LA ACTIVIDAD LAB
+        salir_lab_response=len(get_out_lab) * 40+100
+        #VECES QUE GANO EN LAB FACIL
+        gano_lab_facil_response=len(get_fruiteasy_lab) *40+100
+        #VECES QUE GANO EN LAB MEDIO
+        gano_lab_medio_response=len(get_fruitmed_lab)+40+100
+        #VECES QUE GANO EN LAB DIFICIL
+        gano_lab_dificil_response=len(get_fruithard_lab)*40+100
+        #VECES QUE PIERDE EN LAB FACIL
+        pierde_lab_facil_response=len(get_fastfoodeasy_lab)*40+100
+        #VECES QUE PIERDE EN LAB MEDIO
+        pierde_lab_medio_response=len(get_fastfoodmed_lab)*40+100
+        #VECES QUE PIERDE EN LAB DIFICIL
+        pierde_lab_dificil_response=len(get_fastfoodhard_lab)*40+100
+
+        ##JUEGO OCEANO RIO
+        #VECES RECOGER BASURA OCEANO
+        recogio_basura_oce_response=len(get_TrashOcean_lab)*40+100
+        #VECES RECOGER BASURA RIO
+        recogio_basura_rio_response=len(get_TrashRiver_lab)*40+100
+        #VECES SALVO ANIMALES OCEANO
+        salvo_animales_oce_response=len(get_OceanAnimals_lab)*40+100
+        #VECES SALVO ANIMALES RIO
+        salvo_animales_rio_response=len(get_RiverAnimals_lab)*40+100
+
+
+
+
+
         #INICIO PLUS SPACE
         #PLUS SPACE-------------------------------------
         #General
